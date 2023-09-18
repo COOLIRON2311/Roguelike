@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Player : MoovingObject
+public class Player : MovingObject
 {
     public int wallDamage = 1; // damage player deals to walls
     public int pointsPerFood = 10;
