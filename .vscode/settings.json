@@ -51,5 +51,7 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Rougelike.sln"
+    "dotnet.defaultSolution": "Rougelike.sln",
+    "cSpell.enabled": true,
+    "cSpell.language": "en"
 }
