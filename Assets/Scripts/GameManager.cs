@@ -1,13 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null; // singleton instance holder
     public BoardManager boardScript;
-    private int level = 1; // test level 3
-    // Start is called before the first frame update
+    private int level = 3; // test level 3
+
     void Awake()
     {
         if (instance == null) // if there is no instance...
