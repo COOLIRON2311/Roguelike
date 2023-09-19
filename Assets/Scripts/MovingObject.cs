@@ -9,7 +9,7 @@ public abstract class MovingObject : MonoBehaviour
     private BoxCollider2D boxCollider;
     private Rigidbody2D rb2D;
     private float inverseMoveTime;
-    private bool isMoving; // fix bug with food
+    protected bool isMoving; // fix bug with food
     // Start is called before the first frame update
     protected virtual void Start()
     {
