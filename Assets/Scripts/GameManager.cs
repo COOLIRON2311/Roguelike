@@ -1,17 +1,24 @@
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
+    public float levelStartDelay = 2f; // time to wait before starting levels
     public float turnDelay = 0.1f;
     public static GameManager instance = null; // singleton instance holder
     public BoardManager boardScript;
     public int playerFoodPoints = 100; // player's food
     [HideInInspector] public bool playersTurn = true; // turn tracker
-    private int level = 8; // test level 3
+
+    private Text levelText;
+    private GameObject levelImage;
+    private int level = 1; // test level 3
     private List<Enemy> enemies;
     private bool enemiesMoving;
+    private bool doingSetup;
 
     void Awake()
     {
@@ -25,11 +32,36 @@ public class GameManager : MonoBehaviour
         boardScript = GetComponent<BoardManager>();
         InitGame();
     }
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+    static public void CallbackInitialization()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+    static private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
+    {
+        instance.level++;
+        instance.InitGame();
+    }
 
     void InitGame()
     {
+        doingSetup = true; // turn off player movement
+        levelImage = GameObject.Find("LevelImage");
+        levelText = GameObject.Find("LevelText").GetComponent<Text>();
+        levelText.text = "Day " + level;
+        levelImage.SetActive(true);
         enemies.Clear();
         boardScript.SetupScene(level);
+        Invoke("HideLevelImage", levelStartDelay);
+    }
+
+    /// <summary>
+    /// Turn off level image after setup is done
+    /// </summary>
+    private void HideLevelImage()
+    {
+        levelImage.SetActive(false);
+        doingSetup = false;
     }
 
     /// <summary>
@@ -37,13 +69,14 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void GameOver()
     {
+        levelText.text = "After " + level + "days, you starved.";
         enabled = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (playersTurn || enemiesMoving)
+        if (playersTurn || enemiesMoving || doingSetup)
             return;
         StartCoroutine(MoveEnemies());
     }
