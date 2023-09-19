@@ -69,7 +69,8 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void GameOver()
     {
-        levelText.text = "After " + level + "days, you starved.";
+        levelText.text = $"After {level} days, you starved.";
+        levelImage.SetActive(true);
         enabled = false;
     }
 

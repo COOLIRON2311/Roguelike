@@ -57,12 +57,12 @@ public class Player : MovingObject
                 break;
             case "Food":
                 food += pointsPerFood;
-                foodText.text = "+" + pointsPerFood + " Food: " + food;
+                foodText.text = $"+{pointsPerFood} Food: {food}";
                 other.gameObject.SetActive(false);
                 break;
             case "Soda":
                 food += pointsPerSoda;
-                foodText.text = "+" + pointsPerSoda + " Food: " + food;
+                foodText.text = $"+{pointsPerSoda} Food: {food}";
                 other.gameObject.SetActive(false);
                 break;
         }
@@ -92,7 +92,7 @@ public class Player : MovingObject
     {
         animator.SetTrigger("playerHit");
         food -= loss;
-        foodText.text = "-" + loss + " Food: " + food;
+        foodText.text = $"-{loss} Food: {food}";
         CheckIfGameOver();
     }
 
