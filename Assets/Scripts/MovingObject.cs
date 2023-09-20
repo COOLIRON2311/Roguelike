@@ -28,7 +28,7 @@ public abstract class MovingObject : MonoBehaviour
         float sqrRemDist = (transform.position - end).sqrMagnitude;
         while (sqrRemDist > float.Epsilon)
         {
-            var newPos = Vector3.MoveTowards(rb2D.position, end, inverseMoveTime * Time.deltaTime);
+            // var newPos = Vector3.MoveTowards(rb2D.position, end, inverseMoveTime * Time.deltaTime);
             // rb2D.MovePosition(newPos); // move collider to match sprite
             rb2D.position = Vector3.MoveTowards(rb2D.position, end, inverseMoveTime * Time.deltaTime); // collision fix
             sqrRemDist = (transform.position - end).sqrMagnitude;
